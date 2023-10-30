@@ -42,6 +42,20 @@
 5. Open your web browser and go to [http://localhost:3000](http://localhost:3000)
 6. Explore the fruit vending machine application!
 
+### Steps Additional (in project directory run this commands)
+1. npm install
+2. npm isntall mongoose
+3. npm install axios
+4. npm install react-tabs
+5. npm install express
+6. npm install cors
+
+### Steps Additional (in project directory/src run this commands)
+1. npm install
+2. npm install axios
+3. npm install cors
+4. npm install react-tabs
+
 ## Contributing
 Feel free to contribute to the project by opening issues or creating pull requests. Your feedback and contributions are highly appreciated!
 
