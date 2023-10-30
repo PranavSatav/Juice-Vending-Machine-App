@@ -56,6 +56,10 @@
 3. npm install cors
 4. npm install react-tabs
 
+Live Demo - https://juice-vending-machine-app.vercel.app/ 
+But it wont show any products because server.js requires node, and we cant host it for free, so run the server.js using "node server.js" command
+and then go to the link...and see working project..
+
 ## Contributing
 Feel free to contribute to the project by opening issues or creating pull requests. Your feedback and contributions are highly appreciated!
 
