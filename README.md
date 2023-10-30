@@ -44,7 +44,7 @@
 
 ### Steps Additional (in project directory run this commands)
 1. npm install
-2. npm isntall mongoose
+2. npm install mongoose
 3. npm install axios
 4. npm install react-tabs
 5. npm install express
