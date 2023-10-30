@@ -1,4 +1,4 @@
-# Fruit Vending Machine
+# Fruit Juice Vending Machine
 
 ## Features
 
