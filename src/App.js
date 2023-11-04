@@ -4,6 +4,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './styles.css';
 
+
+
+
+
 const useInterval = (callback, delay) => {
   const savedCallback = useRef();
 
@@ -99,7 +103,7 @@ const AdminPanel = ({ fetchFruits, fruits, cart, setCart }) => {
           <p className='middle'>Password - 123</p>
           
           <div className="login-card-container">
-          <img src="https://i.imgur.com/Jh6InPQ.png" width="150px" alt="" className='centerbruh'></img>
+          <img src="https://www.bluetissuemexico.com/img/inicia-sesion.gif" width="150px" alt="" className='centerbruh'></img>
           <input
           className="login-input" 
             type="password"
@@ -115,58 +119,51 @@ const AdminPanel = ({ fetchFruits, fruits, cart, setCart }) => {
 
       {authenticated && (
         <div>
-          <h1>Fruit Admin Panel</h1>
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              value={fruitData.name}
-              onChange={(e) => setFruitData({ ...fruitData, name: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Image URL:</label>
-            <input
-              type="text"
-              value={fruitData.image}
-              onChange={(e) => setFruitData({ ...fruitData, image: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Quantity:</label>
-            <input
-              type="number"
-              value={fruitData.quantity}
-              onChange={(e) => setFruitData({ ...fruitData, quantity: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Price:</label>
-            <input
-              type="number"
-              value={fruitData.price}
-              onChange={(e) => setFruitData({ ...fruitData, price: e.target.value })}
-            />
-          </div>
-          {editFruit ? (
-            <button onClick={editExistingFruit}>Update Fruit</button>
-          ) : (
-            <button onClick={addFruit}>Add Fruit</button>
-          )}
+          <h1 className='middle middle-text'>Fruit Admin Panel</h1>
+          <div className="container">
+          <div className="form-container">
+  <div>
+    <label>Name:</label>
+    <input type="text" value={fruitData.name} onChange={(e) => setFruitData({ ...fruitData, name: e.target.value })} />
+  </div>
+  <div>
+    <label>Image URL:</label>
+    <input type="text" value={fruitData.image} onChange={(e) => setFruitData({ ...fruitData, image: e.target.value })} />
+  </div>
+  <div>
+    <label>Quantity:</label>
+    <input
+      type="number"
+      value={fruitData.quantity}
+      onChange={(e) => setFruitData({ ...fruitData, quantity: e.target.value })}
+    />
+  </div>
+  <div>
+    <label>Price:</label>
+    <input type="number" value={fruitData.price} onChange={(e) => setFruitData({ ...fruitData, price: e.target.value })} />
+  </div>
+  {editFruit ? (
+    <button onClick={editExistingFruit}>Update Fruit</button>
+  ) : (
+    <button onClick={addFruit}>Add Fruit</button>
+  )}
+</div>
+
+          <div className='card1'>
           <ul className="fruit-info">
             {fruits.map((fruit, index) => (
               <li className="item-container" key={fruit._id}>
-                <strong>Name:</strong> {fruit.name},{' '}
-                <strong>Image:</strong>{' '}
-                <img className="fruit-image" src={fruit.image} alt={fruit.name} style={{ maxWidth: '100px' }} />,{' '}
+                <strong>Name:</strong> {fruit.name}{' '}
+                
+                <img className="fruit-image" src={fruit.image} alt={fruit.name} style={{ maxWidth: '100px' }} />{' '}
                 <strong>Quantity:</strong> {fruit.quantity},{' '}
                 <strong>Price:</strong> {fruit.price}{' '}
                 <button onClick={() => deleteFruit(fruit._id)}>Delete</button>{' '}
                 <button onClick={() => startEdit(fruit)}>Edit</button>
               </li>
             ))}
-          </ul>
-        </div>
+          </ul></div>
+        </div></div>
       )}
     </div>
   );
@@ -213,45 +210,55 @@ const UserViewWithCart = ({ fruits, cart, setCart, dispenseCart, goToHelloTab, g
     <div>
       <h2 className='middle-text middle'>Select your favourite juices</h2>
       <div className='container'>
-      <ul className="fruit-info">
-        {fruits.map((fruit) => (
-          <li className="item-container" key={fruit._id}>
-             {fruit.name}{' '}
-            
-            <img className="fruit-image" src={fruit.image} alt={fruit.name} />{' '}
-            <strong >Quantity -</strong><span className="stock-pill"> {fruit.quantity}</span>{' '}
-            <strong>&nbsp;Price -</strong><span className="stock-pill">₹{fruit.price}</span>{' '}
-            <button onClick={() => addToCart(fruit)}>Add to Cart</button>
-          </li>
-        ))}
-      </ul>
+        <ul className="fruit-info">
+          {fruits.map((fruit) => (
+            <li className="item-container" key={fruit._id}>
+               {fruit.name}{' '}
+              
+              <img className="fruit-image" src={fruit.image} alt={fruit.name} />{' '}
+              <strong >Quantity -</strong>
+              <span className={`stock-pill ${fruit.quantity === 0 ? 'out-of-stock' : ''}`}>
+                {fruit.quantity === 0 ? 'Out of Stock' : fruit.quantity}
+              </span>{' '}
+              <strong>&nbsp;Price -</strong>
+              <span className="stock-pill">₹{fruit.price}</span>{' '}
+              <button onClick={() => addToCart(fruit)} disabled={fruit.quantity === 0}>
+                Add to Cart
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
       <div className='cartstyle'>
-      {cart.length === 0 && <p>Please select some items.</p>}
-      
+        {cart.length === 0 && <p>Please select some items.</p>}
+        
+        {cart.length > 0 && (
+          <div>
+            <h2 className='pill-box1'>Selected Items in Cart</h2>
+            <ul className='pill-box'>
+              {cart.map((cartItem, index) => (
+                <li key={cartItem._id}>
+                  {cartItem.name} - X{cartItem.quantity}{' '}
+                  <button className="butt" onClick={() => removeFromCart(index)}>
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       {cart.length > 0 && (
         <div>
-          <h2 className='pill-box1'>Selected Items in Cart</h2>
-          <ul className='pill-box'>
-            {cart.map((cartItem, index) => (
-              <li key={cartItem._id}>
-                {cartItem.name} - X{cartItem.quantity}{' '}
-                <button className="butt" onClick={() => removeFromCart(index)}>Remove</button>
-              </li>
-            ))}
-          </ul>
+          <button className='fixed-button-payment' onClick={goToMakePaymentTab}>
+            Go to Make Payment Tab
+          </button>
         </div>
-        
       )}
-</div>
-      <div>
-       
-        <button className='fixed-button-payment' onClick={goToMakePaymentTab}>Go to Make Payment Tab</button>
-        {/* Removed the "Go to Dispense Tab" button */}
-      </div>
     </div>
   );
 };
+
 
 const ShoppingCart = ({ cart, goBackToChooseFruits }) => {
   const totalPrice = cart.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
@@ -309,20 +316,45 @@ const ShoppingCart = ({ cart, goBackToChooseFruits }) => {
 };
 
 const DispenseTab = ({ cart }) => {
+  const [dispensing, setDispensing] = useState(false);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      setDispensing(true);
+
+      const dispenseTimer = setTimeout(() => {
+        // Perform any necessary actions during dispense (if needed)
+
+        // Set the dispense state back to false after 5 seconds
+        setDispensing(false);
+      }, 5000);
+
+      return () => clearTimeout(dispenseTimer);
+    }
+  }, [cart]);
+
   return (
     <div>
-      
-      <img className="centered-text" src="https://cdna.artstation.com/p/assets/images/images/064/347/952/original/andra-pixel-vending-machine-artstation.gif?1687730818" alt=''></img>
-      <p className='middle middle-text'>Dispensing items, please wait 5 seconds...</p>
-      
-      {cart.length > 0 && (
+      {dispensing && (
         <div>
-        
+          <img
+            className="centered-text"
+            src="https://cdna.artstation.com/p/assets/images/images/064/347/952/original/andra-pixel-vending-machine-artstation.gif?1687730818"
+            alt=""
+          />
+          <p className="middle middle-text">Dispensing items, please wait 5 seconds...</p>
+        </div>
+      )}
+
+      {!dispensing && cart.length === 0 && (
+        <div>
+          <p className="middle middle-text">Please select some items and come back.</p>
         </div>
       )}
     </div>
   );
 };
+
 
 const App = () => {
   const [fruits, setFruits] = useState([]);
@@ -378,7 +410,12 @@ const App = () => {
       goToHelloTab();
     }, 5000);
   };
-
+  const handleTabClick = (index) => {
+    // Allow clicking on the "Get Started" (index 1) and "Admin Panel" (index 0) tabs
+    if (index === 1 || index === 0) {
+      setActiveTab(index);
+    }
+  };
   const [activeTab, setActiveTab] = useState(0);
 
   const refreshUserView = async () => {
@@ -392,15 +429,13 @@ const App = () => {
 
   return (
     <div>
-      
-      <Tabs selectedIndex={activeTab} onSelect={(index) => setActiveTab(index)} defaultIndex={1}>
-      <TabList className="TabList">
-      <Tab className="Tab">Admin Panel 🍒</Tab>
-          <Tab className="Tab">Get Started ✨</Tab>
-          
-          <Tab className="Tab">Choose Fruits 🤖</Tab>
-          <Tab className="Tab">Make Payment 💸</Tab>
-          <Tab className="Tab">Dispense 💎</Tab>
+      <Tabs selectedIndex={activeTab} onSelect={(index) => handleTabClick(index)} defaultIndex={1}>
+        <TabList className="TabList">
+          <Tab onSelect={() => handleTabClick(0)} className="Tab">Admin Panel 🍒</Tab>
+          <Tab onSelect={() => handleTabClick(1)} className="Tab">Get Started ✨</Tab>
+          <Tab onSelect={() => handleTabClick(2)} className="Tab">Choose Fruits 🤖</Tab>
+          <Tab onSelect={() => handleTabClick(3)} className="Tab">Make Payment 💸</Tab>
+          <Tab onSelect={() => handleTabClick(4)} className="Tab">Dispense 💎</Tab>
         </TabList>
 
        
